@@ -12,7 +12,7 @@ interface ScrollRefType {
 }
 
 function App() {
-  const { isPlaying, gameOver } = useGame();
+  const { isPlaying, gameOver, setIsPlaying } = useGame();
   const scrollRef = useRef<ScrollRefType | null>(null);
 
   const duration = 150000;
@@ -53,6 +53,7 @@ function App() {
         position: "relative",
         background: `url(${backgroundDay})`,
       }}
+      onClick={() => setIsPlaying(true)}
     >
       <div
         ref={scrollRef as React.MutableRefObject<HTMLDivElement>}
@@ -66,8 +67,8 @@ function App() {
           zIndex: 1,
         }}
       >
-        <Pipes />
         <Bird />
+        <Pipes />
       </div>
 
       <GameOver />

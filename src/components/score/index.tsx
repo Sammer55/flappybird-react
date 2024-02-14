@@ -31,11 +31,22 @@ const scores = {
 const Score = () => {
   const [audio] = useState(new Audio(pointSound));
 
-  const { score } = useGame();
+  const { score, setScore, isPlaying } = useGame();
 
   useEffect(() => {
-    if (audio && score >= 1) audio.play();
-  }, [score, audio]);
+    let timeoutId: number;
+
+    if (isPlaying) {
+      timeoutId = setTimeout(() => {
+        setScore((prevScore: number) => prevScore + 1);
+        audio.play();
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [score, isPlaying]);
 
   const generateImages = useMemo(() => {
     const scoreToString = score.toString();

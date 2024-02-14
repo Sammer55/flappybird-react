@@ -16,13 +16,14 @@ const Bird = () => {
   );
 
   const [isJumping, setIsJumping] = useState(false);
-  const [rotation, setRotation] = useState(0);
 
   const image = gameOver ? midflapBird : animatedBird;
 
   const handleCheckVisibility = () => {
     const element = birdRef?.current;
-    console.log("Visible = " + isVisible(element));
+    const visible = isVisible(element);
+
+    if (!visible) return setGameOver(true);
   };
 
   const handleGravity = () => {
@@ -49,13 +50,10 @@ const Bird = () => {
           Math.max(prevPosition - jumpHeight, 0)
         );
 
-        setRotation(() => -40 * (1 - progress));
-
         if (progress < 1) {
           requestAnimationFrame(jumpAnimation);
         } else {
           setIsJumping(false);
-          setRotation(0);
         }
       };
 
@@ -129,7 +127,7 @@ const Bird = () => {
         width: BIRD_WIDTH,
         height: BIRD_HEIGHT,
         zIndex: 1,
-        position: "absolute",
+        position: "sticky",
         left: "50%",
         top: birdPosition,
         transform: `translateX(-50%)`,
