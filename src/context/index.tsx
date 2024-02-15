@@ -1,12 +1,30 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, ReactNode } from "react";
 
-const GameContext = createContext({
+interface GameContextProps {
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  gameOver: boolean;
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  birdRef: React.RefObject<unknown>;
+}
+
+const GameContext = createContext<GameContextProps>({
   isPlaying: false,
   setIsPlaying: () => {},
+  score: 0,
+  setScore: () => {},
   gameOver: false,
+  setGameOver: () => {},
+  birdRef: { current: null },
 });
 
-export const GameProvider = ({ children }) => {
+interface GameProviderProps {
+  children: ReactNode;
+}
+
+export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -29,4 +47,4 @@ export const GameProvider = ({ children }) => {
   );
 };
 
-export const useGame = () => useContext(GameContext);
+export const useGame = (): GameContextProps => useContext(GameContext);

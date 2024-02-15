@@ -3,11 +3,11 @@ import { useGame } from "../context";
 import { BIRD_HEIGHT, JUMP_DURATION, JUMP_HEIGHT } from "../utils/bird";
 import { WINDOW_HEIGHT } from "../utils/game";
 
+const center = WINDOW_HEIGHT / 2 - BIRD_HEIGHT / 2;
+
 const useControls = () => {
-  const [birdPosition, setBirdPosition] = useState(
-    WINDOW_HEIGHT / 2 - BIRD_HEIGHT / 2
-  );
   const [isJumping, setIsJumping] = useState(false);
+  const [birdPosition, setBirdPosition] = useState(center);
 
   const { isPlaying, setIsPlaying, gameOver } = useGame();
 

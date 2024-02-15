@@ -1,12 +1,15 @@
 import React, { useRef, useEffect } from "react";
-import backgroundDay from "./assets/background-day.png";
+
+import { GAME_DURATION } from "./utils/game";
+import GameOver from "./components/gameover";
+import Header from "./components/header";
 import Pipes from "./components/pipes";
 import Score from "./components/score";
-import GameOver from "./components/gameover";
 import Bird from "./components/bird";
 import Base from "./components/base";
 import { useGame } from "./context";
-import Header from "./components/header";
+
+import backgroundDay from "./assets/background-day.png";
 
 interface ScrollRefType {
   scrollLeft?: number;
@@ -15,8 +18,6 @@ interface ScrollRefType {
 function App() {
   const { isPlaying, gameOver } = useGame();
   const scrollRef = useRef<ScrollRefType | null>(null);
-
-  const duration = 150000;
 
   useEffect(() => {
     let animationId: number;
@@ -27,11 +28,10 @@ function App() {
 
     const scrollToEnd = (startTime: number) => {
       const currentTime = Date.now();
-      const progress = (currentTime - startTime) / duration;
+      const progress = (currentTime - startTime) / GAME_DURATION;
 
-      if (buttonElement.scrollLeft !== undefined) {
+      if (buttonElement.scrollLeft !== undefined)
         buttonElement.scrollLeft = progress * scrollWidth;
-      }
 
       if (progress < 1 && isPlaying && !gameOver) {
         animationId = requestAnimationFrame(() => scrollToEnd(startTime));

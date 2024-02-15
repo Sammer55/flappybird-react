@@ -1,21 +1,24 @@
-import Pipe from "./pipe";
+import { generateRandomHeight } from "../../utils/generateRandomHeight";
 import {
-  BASE_HEIGHT,
-  FAIR_PLAY_PIPES,
   FAIR_PLAY_PIPE_SIZE,
-  PIPES_GAP,
   PIPES_SPACE_BETWEEN,
-  WINDOW_HEIGHT,
+  FAIR_PLAY_PIPES,
+  PIPES_GENERATE,
+  PIPES_GAP,
 } from "../../utils/game";
+import Pipe from "./pipe";
+
 import pipeHead from "../../assets/pipe-head.png";
 import pipeBody from "../../assets/pipe-body.png";
-import { generateRandomHeight } from "../../utils/generateRandomHeight";
 
 const fairPlayPipes = Array.from(
   { length: FAIR_PLAY_PIPES },
   () => FAIR_PLAY_PIPE_SIZE
 );
-const randomPipes = Array.from({ length: 100 }, () => generateRandomHeight());
+
+const randomPipes = Array.from({ length: PIPES_GENERATE }, () =>
+  generateRandomHeight()
+);
 
 const pipes = [...fairPlayPipes, ...randomPipes];
 

@@ -1,9 +1,15 @@
-import "./button.css";
 import jump from "../../assets/jump.png";
+import "./button.css";
 
-const Jump = ({ onClick }) => {
+type Props = {
+  onClick: () => void;
+};
+
+const Jump = ({ onClick }: Props) => {
   return (
     <button
+      aria-label="jump button"
+      type="button"
       onClick={onClick}
       style={{
         position: "fixed",
@@ -15,7 +21,7 @@ const Jump = ({ onClick }) => {
         zIndex: 999999,
       }}
     >
-      <img src={jump} style={{ width: 40, height: 40 }} />
+      <img alt="Jump button" src={jump} style={{ width: 40, height: 40 }} />
     </button>
   );
 };

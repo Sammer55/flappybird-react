@@ -12,8 +12,9 @@ import six from "../../assets/score/6.png";
 import seven from "../../assets/score/7.png";
 import eight from "../../assets/score/8.png";
 import nine from "../../assets/score/9.png";
+import { SCORE_DELAY } from "../../utils/game";
 
-type ScoreNumbers = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+type ScoreNumbersType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 const scores = {
   0: zero,
@@ -40,7 +41,7 @@ const Score = () => {
       timeoutId = setTimeout(() => {
         setScore((prevScore: number) => prevScore + 1);
         audio.play();
-      }, 3000);
+      }, SCORE_DELAY);
     }
 
     return () => {
@@ -51,14 +52,17 @@ const Score = () => {
   const generateImages = useMemo(() => {
     const scoreToString = score.toString();
     const splittedScore = scoreToString.split("");
-    return splittedScore.map((item: ScoreNumbers, index: number) => (
-      <img
-        style={{ width: "100%", height: "100%" }}
-        alt="Score point"
-        key={index}
-        src={scores[item]}
-      />
-    ));
+    return splittedScore.map((item: string, index: number) => {
+      const src = scores[item as unknown as ScoreNumbersType];
+      return (
+        <img
+          style={{ width: "100%", height: "100%" }}
+          alt="Score point"
+          key={index}
+          src={src}
+        />
+      );
+    });
   }, [score]);
 
   return (

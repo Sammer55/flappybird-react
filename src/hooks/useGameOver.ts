@@ -4,18 +4,18 @@ import { BASE_HEIGHT, WINDOW_HEIGHT } from "../utils/game";
 const useGameOver = () => {
   const { birdRef, gameOver, setGameOver, score } = useGame();
 
-  const isVisible = (element) => {
+  const isVisible = (element: Element) => {
     if (!isVisibleByStyles(element)) return false;
     if (isBehindOtherElement(element)) return false;
     return true;
   };
 
-  const isVisibleByStyles = (element) => {
+  const isVisibleByStyles = (element: Element) => {
     const styles = window.getComputedStyle(element);
     return styles.visibility !== "hidden" && styles.display !== "none";
   };
 
-  const isBehindOtherElement = (element) => {
+  const isBehindOtherElement = (element: Element) => {
     const boundingRect = element.getBoundingClientRect();
     const left = boundingRect.left + 1;
     const right = boundingRect.right - 1;
@@ -35,16 +35,14 @@ const useGameOver = () => {
 
   const handleVerifyGameOver = () => {
     const element = birdRef?.current;
-    const visible = isVisible(element);
+    const visible = isVisible(element as unknown as Element);
 
     if (!visible) {
       setGameOver(true);
 
       const lastScore = localStorage.getItem("score") || 0;
       const isBetter = Number(lastScore) < score;
-      if (isBetter) localStorage.setItem("score", score);
-
-      window.location.reload();
+      if (isBetter) localStorage.setItem("score", String(score));
     }
   };
 

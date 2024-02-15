@@ -1,11 +1,12 @@
-import { useCallback, useEffect } from "react";
-import midflapBird from "../../assets/yellowbird/yellowbird-midflap.png";
-import animatedBird from "../../assets/yellowbird/bird.gif";
+import { useEffect } from "react";
 import { BIRD_HEIGHT, BIRD_WIDTH, GRAVITY_INTERVAL } from "../../utils/bird";
-import { useGame } from "../../context";
 import useControls from "../../hooks/useControls";
 import useGameOver from "../../hooks/useGameOver";
+import { useGame } from "../../context";
 import Jump from "../jump";
+
+import midflapBird from "../../assets/yellowbird/yellowbird-midflap.png";
+import animatedBird from "../../assets/yellowbird/bird.gif";
 
 const Bird = () => {
   const { gameOver, birdRef, isPlaying } = useGame();
@@ -23,22 +24,29 @@ const Bird = () => {
         handleGravity();
       }, GRAVITY_INTERVAL);
 
-      return () => {
-        clearInterval(gravityInterval);
-      };
+      return () => clearInterval(gravityInterval);
     }
-  }, [birdPosition, gameOver, isJumping, isPlaying]);
+  }, [
+    birdPosition,
+    gameOver,
+    handleGravity,
+    handleVerifyGameOver,
+    isJumping,
+    isPlaying,
+  ]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleJump);
     return () => window.removeEventListener("keydown", handleJump);
-  }, []);
+  }, [handleJump]);
 
   return (
     <>
       <Jump onClick={handleJump} />
       <img
         alt="Bird"
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         ref={birdRef}
         src={image}
         style={{
