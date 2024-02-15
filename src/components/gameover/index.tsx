@@ -16,13 +16,14 @@ const GameOver = () => {
   return (
     gameOver && (
       <img
+        alt="Game over"
         src={gameoverImage}
         style={{
           position: "absolute",
           top: WINDOW_HEIGHT / 2,
           left: "50%",
           transform: "translateX(-50%)",
-          zIndex: 2,
+          zIndex: 3,
         }}
       />
     )

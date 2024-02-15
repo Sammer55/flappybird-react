@@ -6,13 +6,14 @@ import GameOver from "./components/gameover";
 import Bird from "./components/bird";
 import Base from "./components/base";
 import { useGame } from "./context";
+import Header from "./components/header";
 
 interface ScrollRefType {
   scrollLeft?: number;
 }
 
 function App() {
-  const { isPlaying, gameOver, setIsPlaying } = useGame();
+  const { isPlaying, gameOver } = useGame();
   const scrollRef = useRef<ScrollRefType | null>(null);
 
   const duration = 150000;
@@ -38,12 +39,10 @@ function App() {
     };
 
     if (isPlaying && !gameOver) {
-      let startTime = Date.now();
-
+      const startTime = Date.now();
       scrollToEnd(startTime);
     }
 
-    // Cleanup function to cancel animation frame when component unmounts or game over
     return () => cancelAnimationFrame(animationId);
   }, [isPlaying, gameOver]);
 
@@ -52,19 +51,17 @@ function App() {
       style={{
         position: "relative",
         background: `url(${backgroundDay})`,
+        height: "100dvh",
+        overflow: "hidden",
       }}
-      onClick={() => setIsPlaying(true)}
     >
+      <Header />
+
       <div
         ref={scrollRef as React.MutableRefObject<HTMLDivElement>}
         style={{
-          height: "100vh",
-          overflowY: "hidden",
-          overflowX: "scroll",
+          overflow: "hidden",
           position: "relative",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1,
         }}
       >
         <Bird />

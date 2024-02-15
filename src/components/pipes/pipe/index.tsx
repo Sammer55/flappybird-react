@@ -20,10 +20,12 @@ const Pipe = React.memo(({ isReverse, height, pipeHead, pipeBody }: Props) => {
         position: "relative",
         height,
         rotate: isReverse ? "0deg" : "180deg",
+        justifyContent: isReverse ? "flex-start" : "flex-end",
         zIndex: 3,
       }}
     >
       <img
+        alt="Pipe head"
         src={pipeHead}
         style={{
           width: PIPE_WIDTH,
@@ -31,6 +33,7 @@ const Pipe = React.memo(({ isReverse, height, pipeHead, pipeBody }: Props) => {
         }}
       />
       <img
+        alt="Pipe body"
         src={pipeBody}
         style={{
           width: PIPE_WIDTH - 4,

@@ -1,9 +1,11 @@
 import Pipe from "./pipe";
 import {
+  BASE_HEIGHT,
   FAIR_PLAY_PIPES,
   FAIR_PLAY_PIPE_SIZE,
   PIPES_GAP,
   PIPES_SPACE_BETWEEN,
+  WINDOW_HEIGHT,
 } from "../../utils/game";
 import pipeHead from "../../assets/pipe-head.png";
 import pipeBody from "../../assets/pipe-body.png";
@@ -32,11 +34,10 @@ const Pipes = () => {
           <div
             key={index}
             style={{
-              background: "red",
               display: "flex",
               flexDirection: "column",
-              gap: PIPES_GAP,
               justifyContent: "space-between",
+              gap: PIPES_GAP,
             }}
           >
             <Pipe

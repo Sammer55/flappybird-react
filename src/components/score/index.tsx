@@ -31,12 +31,12 @@ const scores = {
 const Score = () => {
   const [audio] = useState(new Audio(pointSound));
 
-  const { score, setScore, isPlaying } = useGame();
+  const { score, setScore, gameOver, isPlaying } = useGame();
 
   useEffect(() => {
     let timeoutId: number;
 
-    if (isPlaying) {
+    if (isPlaying && !gameOver) {
       timeoutId = setTimeout(() => {
         setScore((prevScore: number) => prevScore + 1);
         audio.play();
@@ -46,13 +46,18 @@ const Score = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [score, isPlaying]);
+  }, [score, isPlaying, gameOver]);
 
   const generateImages = useMemo(() => {
     const scoreToString = score.toString();
     const splittedScore = scoreToString.split("");
     return splittedScore.map((item: ScoreNumbers, index: number) => (
-      <img key={index} src={scores[item]} />
+      <img
+        style={{ width: "100%", height: "100%" }}
+        alt="Score point"
+        key={index}
+        src={scores[item]}
+      />
     ));
   }, [score]);
 
