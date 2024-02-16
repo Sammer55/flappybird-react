@@ -10,6 +10,7 @@ import Base from "./components/base";
 import { useGame } from "./context";
 
 import { Wrapper, WrapperPipes } from "./styles";
+import useControls from "./hooks/useControls";
 
 interface ScrollRefType {
   scrollLeft?: number;
@@ -17,33 +18,11 @@ interface ScrollRefType {
 
 function App() {
   const { isPlaying, gameOver } = useGame();
+  const { handleStartScroll } = useControls();
   const scrollRef = useRef<ScrollRefType | null>(null);
 
   useEffect(() => {
-    let animationId: number;
-
-    const buttonElement = scrollRef.current as HTMLDivElement;
-    const scrollWidth =
-      (buttonElement.scrollWidth || 0) - (buttonElement.clientWidth || 0);
-
-    const scrollToEnd = (startTime: number) => {
-      const currentTime = Date.now();
-      const progress = (currentTime - startTime) / GAME_DURATION;
-
-      if (buttonElement.scrollLeft !== undefined)
-        buttonElement.scrollLeft = progress * scrollWidth;
-
-      if (progress < 1 && isPlaying && !gameOver) {
-        animationId = requestAnimationFrame(() => scrollToEnd(startTime));
-      }
-    };
-
-    if (isPlaying && !gameOver) {
-      const startTime = Date.now();
-      scrollToEnd(startTime);
-    }
-
-    return () => cancelAnimationFrame(animationId);
+    handleStartScroll(scrollRef);
   }, [isPlaying, gameOver]);
 
   return (
