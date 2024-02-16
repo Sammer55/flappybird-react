@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useGame } from "../../context";
 
-import pointSound from "../../assets/sounds/audio_point.wav";
 import zero from "../../assets/score/0.png";
 import one from "../../assets/score/1.png";
 import two from "../../assets/score/2.png";
@@ -31,8 +30,6 @@ const scores = {
 };
 
 const Score = () => {
-  const [audio] = useState(new Audio(pointSound));
-
   const { score, setScore, gameOver, isPlaying } = useGame();
 
   useEffect(() => {
@@ -41,7 +38,6 @@ const Score = () => {
     if (isPlaying && !gameOver) {
       timeoutId = setTimeout(() => {
         setScore((prevScore: number) => prevScore + 1);
-        audio.play();
       }, SCORE_DELAY);
     }
 
