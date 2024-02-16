@@ -9,7 +9,7 @@ import Bird from "./components/bird";
 import Base from "./components/base";
 import { useGame } from "./context";
 
-import backgroundDay from "./assets/background-day.png";
+import { Wrapper, WrapperPipes } from "./styles";
 
 interface ScrollRefType {
   scrollLeft?: number;
@@ -47,31 +47,18 @@ function App() {
   }, [isPlaying, gameOver]);
 
   return (
-    <main
-      style={{
-        position: "relative",
-        background: `url(${backgroundDay})`,
-        height: "100dvh",
-        overflow: "hidden",
-      }}
-    >
+    <Wrapper>
       <Header />
 
-      <div
-        ref={scrollRef as React.MutableRefObject<HTMLDivElement>}
-        style={{
-          overflow: "hidden",
-          position: "relative",
-        }}
-      >
+      <WrapperPipes ref={scrollRef as React.MutableRefObject<HTMLDivElement>}>
         <Bird />
         <Pipes />
-      </div>
+      </WrapperPipes>
 
       <GameOver />
       <Score />
       <Base />
-    </main>
+    </Wrapper>
   );
 }
 

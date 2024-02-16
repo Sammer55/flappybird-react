@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BIRD_HEIGHT, BIRD_WIDTH, GRAVITY_INTERVAL } from "../../utils/bird";
+import { GRAVITY_INTERVAL } from "../../utils/bird";
 import useControls from "../../hooks/useControls";
 import useGameOver from "../../hooks/useGameOver";
 import { useGame } from "../../context";
@@ -7,6 +7,7 @@ import Jump from "../jump";
 
 import midflapBird from "../../assets/yellowbird/yellowbird-midflap.png";
 import animatedBird from "../../assets/yellowbird/bird.gif";
+import { WrapperBird } from "./styles";
 
 const Bird = () => {
   const { gameOver, birdRef, isPlaying } = useGame();
@@ -43,22 +44,13 @@ const Bird = () => {
   return (
     <>
       <Jump onClick={handleJump} />
-      <img
+      <WrapperBird
         alt="Bird"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         ref={birdRef}
         src={image}
-        style={{
-          width: BIRD_WIDTH,
-          height: BIRD_HEIGHT,
-          zIndex: 1,
-          position: "sticky",
-          left: "50%",
-          top: birdPosition,
-          transform: `translateX(-50%)`,
-          overflow: "scroll",
-        }}
+        birdPosition={birdPosition}
       />
     </>
   );

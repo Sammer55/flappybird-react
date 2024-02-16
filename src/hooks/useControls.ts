@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { Ref, useState } from "react";
 import { useGame } from "../context";
 import { BIRD_HEIGHT, JUMP_DURATION, JUMP_HEIGHT } from "../utils/bird";
-import { WINDOW_HEIGHT } from "../utils/game";
+import { GAME_DURATION, WINDOW_HEIGHT } from "../utils/game";
 
 const center = WINDOW_HEIGHT / 2 - BIRD_HEIGHT / 2;
+
+interface ScrollRefType {
+  scrollLeft?: number;
+}
 
 const useControls = () => {
   const [isJumping, setIsJumping] = useState(false);
@@ -45,12 +49,40 @@ const useControls = () => {
       );
   };
 
+  const handleStartScroll = (scrollRef) => {
+    let animationId: number;
+
+    const buttonElement = scrollRef.current as HTMLDivElement;
+    const scrollWidth =
+      (buttonElement.scrollWidth || 0) - (buttonElement.clientWidth || 0);
+
+    const scrollToEnd = (startTime: number) => {
+      const currentTime = Date.now();
+      const progress = (currentTime - startTime) / GAME_DURATION;
+
+      if (buttonElement.scrollLeft !== undefined)
+        buttonElement.scrollLeft = progress * scrollWidth;
+
+      if (progress < 1 && isPlaying && !gameOver) {
+        animationId = requestAnimationFrame(() => scrollToEnd(startTime));
+      }
+    };
+
+    if (isPlaying && !gameOver) {
+      const startTime = Date.now();
+      scrollToEnd(startTime);
+    }
+
+    return () => cancelAnimationFrame(animationId);
+  };
+
   return {
     handleJump,
     birdPosition,
     setBirdPosition,
     handleGravity,
     isJumping,
+    handleStartScroll,
   };
 };
 

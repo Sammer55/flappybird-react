@@ -1,5 +1,6 @@
 import React from "react";
 import { PIPE_WIDTH } from "../../../utils/game";
+import { Wrapper, PipeImage } from "./styles";
 
 type Props = {
   isReverse?: boolean;
@@ -10,38 +11,23 @@ type Props = {
 
 const Pipe = React.memo(({ isReverse, height, pipeHead, pipeBody }: Props) => {
   return (
-    <div
-      id="covering-element"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: PIPE_WIDTH,
-        position: "relative",
-        height,
-        rotate: isReverse ? "0deg" : "180deg",
-        justifyContent: isReverse ? "flex-start" : "flex-end",
-        zIndex: 3,
-      }}
-    >
-      <img
+    <Wrapper isReverse={isReverse} height={height} id="covering-element">
+      <PipeImage
         alt="Pipe head"
         src={pipeHead}
-        style={{
-          width: PIPE_WIDTH,
-          height: 26,
-        }}
+        width={PIPE_WIDTH}
+        height="26px"
       />
-      <img
+      <PipeImage
         alt="Pipe body"
         src={pipeBody}
+        width={PIPE_WIDTH - 4}
+        height="100%"
         style={{
-          width: PIPE_WIDTH - 4,
-          height: "100%",
           objectFit: "fill",
         }}
       />
-    </div>
+    </Wrapper>
   );
 });
 

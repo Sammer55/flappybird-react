@@ -1,11 +1,11 @@
+import { Wrapper, WrapperPipe } from "./styles";
 import { generateRandomHeight } from "../../utils/generateRandomHeight";
 import {
   FAIR_PLAY_PIPE_SIZE,
-  PIPES_SPACE_BETWEEN,
   FAIR_PLAY_PIPES,
   PIPES_GENERATE,
-  PIPES_GAP,
 } from "../../utils/game";
+
 import Pipe from "./pipe";
 
 import pipeHead from "../../assets/pipe-head.png";
@@ -24,25 +24,10 @@ const pipes = [...fairPlayPipes, ...randomPipes];
 
 const Pipes = () => {
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        gap: PIPES_SPACE_BETWEEN,
-      }}
-    >
+    <Wrapper>
       {pipes.map((item, index) => {
         return (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              gap: PIPES_GAP,
-            }}
-          >
+          <WrapperPipe key={index}>
             <Pipe
               pipeHead={pipeHead}
               pipeBody={pipeBody}
@@ -55,10 +40,10 @@ const Pipes = () => {
               isReverse
               height={item?.pipeUp}
             />
-          </div>
+          </WrapperPipe>
         );
       })}
-    </div>
+    </Wrapper>
   );
 };
 
