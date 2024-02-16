@@ -28,12 +28,20 @@ export const LastScore = styled.p`
   color: white;
 `;
 
-export const WrapperGithub = styled.div`
+export const WrapperGithub = styled.a`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
   margin-left: 16px;
+`;
+
+export const GithubName = styled.p`
+  display: flex;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const MadeWithLove = styled.p`
