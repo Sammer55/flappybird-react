@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+<img src="/src/assets/icon.png" alt="app logo" width="100" height="100"/>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# FlappyBird
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+FlappyBird is a project created to test the speed of Vite, practice programming logic, and provide a customizable Flappy Bird game experience. The game allows you to tweak various variables such as bird speed, gravity, pipe sizes, spacing between pipes, and more.
 
-## Expanding the ESLint configuration
+You can easily customize the game variables by navigating to **utils** -> **game.ts** or **bird.ts** (for bird-specific properties like size, jump distance, and duration).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Link to test: https://flappybird-react-rouge.vercel.app/
 
-- Configure the top-level `parserOptions` property like this:
+## Screenshots
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+<img src="https://github.com/Sammer55/flappybird-react/assets/80492895/ae1be92e-4d3e-477d-ac2e-17475eb07ab4" alt="screenshot 1" width="800"/>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+  <img src="https://github.com/Sammer55/flappybird-react/assets/80492895/8770fbb1-3411-47bc-8d6e-db176ed7face" alt="screenshot 2" width="250"/>
+  <img src="https://github.com/Sammer55/flappybird-react/assets/80492895/5240e9e2-58d0-4e2a-9d14-921434c3e4b3" alt="screenshot 3" width="250"/>
+</div>
+
+## Built with
+
+- React
+- Vite
+- Typescript
+- CSS-in-js (styled-components)
+- Context API
+
+## Run the project
+
+Clone this repo and open in VSCode or any code editor of your choice. Open Terminal and type this command to install all the dependencies.
+
+```
+yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Now to run the app, run this command.
+
+```
+yarn dev
+```
